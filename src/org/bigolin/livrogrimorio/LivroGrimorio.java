@@ -23,25 +23,14 @@ import org.bigolin.livrogrimorio.app.TelaPrincipalController;
  */
 public class LivroGrimorio extends Application {
     
+    private Stage primaryStage; //isso não havia em outras classes
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
+        this.primaryStage = primaryStage;
+
+        primaryStage.setTitle("Livro de poções");
+        primaryStage.setScene(getRootLayout());
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
     
@@ -53,7 +42,11 @@ public class LivroGrimorio extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(TelaPrincipalController.class.getResource("tela_principal.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
-
+            
+            //observe essas duas linhas
+            TelaPrincipalController tc = loader.getController();
+            tc.setStage(primaryStage);
+            
             scene = new Scene(rootLayout);
 
         } catch (IOException e) {
